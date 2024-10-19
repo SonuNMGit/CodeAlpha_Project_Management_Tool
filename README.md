@@ -33,7 +33,7 @@ Installation-
 
 Clone the repository:
 
-git clone https://github.com/SonuNMGit/CodeAlpha_Project_Management_Tool-TaskFlow.git
+git clone https://github.com/SonuNMGit/CodeAlpha_Project_Management_Tool.git
 
 Navigate to the project directory:
 
