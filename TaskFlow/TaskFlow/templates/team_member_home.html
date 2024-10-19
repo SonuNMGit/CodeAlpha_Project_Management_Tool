@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Team Member Home - TaskFlow</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"> 
+    <style>
+        /* Overall Body Styles */
+        body {
+            background: #f4f7fc; /* Light gray background for modern feel */
+            color: #333;
+            font-family: 'Roboto', sans-serif; /* Slightly more modern font */
+            text-align: center;
+            padding: 20px; /* Reduced padding for compactness */
+        }
+
+        /* Headings */
+        h1 {
+            font-size: 2.5em;
+            margin-bottom: 30px;
+            color: #2c3e50;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1);
+        }
+
+        h2, h3, h4 {
+            color: #34495e;
+        }
+
+        /* Project and Task Cards */
+        .project-list, .task-list {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px; /* Space between cards */
+            padding: 20px;
+        }
+
+        .project-item, .task-item {
+            background-color: #fff;
+            border-radius: 8px;
+            padding: 20px;
+            width: calc(50% - 20px); /* Two columns layout */
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            text-align: left;
+            transition: transform 0.3s;
+            background-clip: padding-box; /* Ensures background color respects the padding */
+            position: relative;
+        }
+
+        /* Differentiating Padding Background */
+        .project-item::before, .task-item::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            z-index: -1;
+            background-color: #ecf0f1; /* Light gray background for padding */
+            border-radius: 8px;
+            padding: 10px; /* Padding background for task and project items */
+        }
+
+        .project-item:hover, .task-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+        }
+
+        /* Task and Project Heading */
+        h3 {
+            font-size: 1.75em;
+            margin-bottom: 10px;
+        }
+
+        /* Task Actions */
+        .task-actions {
+            margin-top: 20px;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        /* Buttons */
+        button {
+            background-color: #007bff;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        /* Icons for better task recognition */
+        .task-item .fa {
+            margin-right: 5px;
+            color: #3498db;
+        }
+
+        /* Comment Section */
+        .comments-section {
+            margin-top: 20px;
+            padding: 10px;
+            background-color: #f8f9fa; /* Slightly darker background for comments section */
+            border-radius: 8px;
+            border: 1px solid #ddd;
+        }
+
+        .comments-section button {
+            background-color: #ff5722;
+            margin-top: 10px;
+        }
+
+        /* Comment Entry */
+        .comment {
+            display: flex;
+            justify-content: space-between;
+            border-bottom: 1px solid #ddd;
+            padding-bottom: 10px;
+            margin-bottom: 10px;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .project-item, .task-item {
+                width: 100%; /* Full width on smaller screens */
+            }
+
+            h1 {
+                font-size: 2em;
+            }
+        }
+
+        /* Add padding to the link-item */
+        .link-item {
+            padding: 10px 0; /* Add vertical padding for spacing */
+            background-color: #e3f2fd; /* Light blue padding background */
+            word-wrap: break-word; /* Break long links */
+            overflow-wrap: break-word; /* Support for wider range of browsers */
+        }
+
+        /* Link inside link-item */
+        .link-item a {
+            display: block; /* Ensure the link takes up full width inside the box */
+            padding: 5px 0;
+            text-decoration: none;
+            color: #3498db; /* Link color */
+            max-width: 100%; /* Prevent link from exceeding the container width */
+        }
+
+        .link-item a:hover {
+            text-decoration: underline;
+            color: #0056b3; /* Darker color on hover for better contrast */
+        }
+
+        /* Ensure the task-item container respects boundaries */
+        .task-item {
+            padding: 20px;
+            box-sizing: border-box; /* Ensure padding and borders are included in width calculation */
+            word-wrap: break-word; /* Ensure content breaks properly within the box */
+        }
+
+    </style>
+    <script>
+        function toggleComments(button) {
+            const commentList = button.nextElementSibling;
+            if (commentList.style.display === "none") {
+                commentList.style.display = "block";
+                button.textContent = "Hide Comments";
+            } else {
+                commentList.style.display = "none";
+                button.textContent = "Show Comments";
+            }
+        }
+    </script>
+</head>
+<body>
+    {% include 'header.html' %}
+    <h1>Welcome to the Team Member Dashboard</h1>
+    <p>Collaborate with your team and track your tasks.</p>
+
+    <div class="project-list">
+        {% if user_projects.exists %}
+            <h2>Your Projects:</h2>
+            {% for project in user_projects %}
+                <div class="project-item">
+                    <h3>Project Name:{{ project.name }}</h3>
+                    <p>Project Description:{{ project.description }}</p>
+                    <p>Deadline: {{ project.deadline }}</p>
+                    <p>Created at: {{ project.created_at|date:"F d, Y" }}</p>
+                    <p>Created by: {{ project.creator}}, Role:Manager</p>
+                    <p>Team Members: {{ project.team_members.all|join:", " }}</p>
+
+                    <div class="task-list">
+                        <h4>Assigned Tasks:</h4>
+                        {% for task in project.tasks.all %}
+                            <div class="task-item">
+                                <strong><i class="fa fa-tasks"></i> Task:{{ task.title }}</strong><br>
+                                <p>Task Description:{{ task.description }}</p>
+                                <p><i class="fa fa-user"></i> Assigned to: {{ task.assigned_to.username }}</p>
+                                <p><i class="fa fa-calendar"></i> Deadline: {{ task.deadline }}</p>
+
+                                <div class="link-item">
+                                    <strong><i class="fa fa-link"></i> Task Link:</strong>
+                                    {% for link in task.links.all %}
+                                        <a href="{{ link.link }}" target="_blank">{{ link.link }}</a>
+                                    {% empty %}
+                                        <p>No links added yet.</p>
+                                    {% endfor %}
+                                </div>
+
+                                {% if task.assigned_to == user %}
+                                    <div class="link-list">
+                                        <h5>Your Task Links:</h5>
+                                        {% for link in task.links.all %}
+                                            <div class="link-item">
+                                                <a href="{{ link.link }}" target="_blank">{{ link.link }}</a>
+                                                <form method="post" action="{% url 'delete_task_link' link.id %}" style="display:inline;">
+                                                    {% csrf_token %}
+                                                    <button type="submit">Delete</button>
+                                                </form>
+                                            </div>
+                                        {% empty %}
+                                            <p>No links added yet.</p>
+                                        {% endfor %}
+                                    </div>
+
+                                    <form method="post" action="{% url 'save_task_link' task.id %}">
+                                        {% csrf_token %}
+                                        <input type="url" name="link" id="link" placeholder="Enter your work link" required>
+                                        <button type="submit">Save Link</button>
+                                    </form>
+                                {% endif %}
+
+                                <div class="comments-section">
+                                    <h4><i class="fa fa-comments"></i> Comments</h4>
+                                    <button class="toggle-comments" onclick="toggleComments(this)">Show Comments</button>
+                                    <div class="comment-list" style="display: none;">
+                                        {% for comment in task.comments.all %}
+                                            <div class="comment">
+                                                <p><i class="fa fa-user"></i> {{ comment.user.username }}: {{ comment.content }}</p>
+                                                {% if comment.user == request.user %}
+                                                    <form action="{% url 'delete_comment' comment.id %}" method="POST" style="display:inline;">
+                                                        {% csrf_token %}
+                                                        <button type="submit" style="border: none; background: none; color: #ff5722; cursor: pointer;">Delete</button>
+                                                    </form>
+                                                {% endif %}
+                                            </div>
+                                        {% empty %}
+                                            <p>No comments yet.</p>
+                                        {% endfor %}
+                                    </div>
+
+                                    <form action="{% url 'add_comment' task.id %}" method="POST">
+                                        {% csrf_token %}
+                                        <input type="text" name="content" placeholder="Add a comment" required>
+                                        <button type="submit" class="button">Comment</button>
+                                    </form>
+                                </div>
+                            </div>
+                        {% empty %}
+                            <p>No tasks assigned to this project.</p>
+                        {% endfor %}
+                    </div>
+                </div>
+            {% endfor %}
+        {% else %}
+            <p>You are not part of any projects.</p>
+        {% endif %}
+    </div>
+
+    {% include 'footer.html' %}
+</body>
+</html>

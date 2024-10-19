@@ -1,0 +1,21 @@
+for admin:
+Create a super user for admin usage.
+
+for manager:
+create a account for manager.
+
+for team members:
+create a account for team member.
+
+
+to run on desktop:
+cd TaskFlow
+python manage.py makemigrations
+python manage.py migrate
+python manage.py runserver
+
+to run on mobile (make sure phone and your desktop connect to same wifi):
+ipconfig (these give your ip address)
+python manage.py runserver add_your_ipAddress:8000
+
+ALLOWED_HOSTS = ['localhost', '127.0.0.1', 'add_your_ipAddress'] in settings.py

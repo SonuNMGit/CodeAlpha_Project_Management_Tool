@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Delete Project - TaskFlow</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f0f4f8; /* Light gray background */
+            margin: 0;
+            padding: 20px;
+        }
+
+        h1 {
+            color: #333;
+            text-align: center;
+            margin-bottom: 30px; /* Increased margin for a cleaner look */
+        }
+
+        .confirmation-box {
+            background: #ffffff; /* White background for the box */
+            padding: 30px; /* Padding for spacious feel */
+            border-radius: 8px; /* Rounded corners */
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1); /* Shadow for depth */
+            max-width: 600px; /* Set a max-width for better layout */
+            margin: 0 auto; /* Center the box */
+            text-align: center; /* Center text */
+        }
+
+        p {
+            font-size: 18px; /* Slightly larger font for message */
+            color: #555; /* Darker gray for better readability */
+            margin-bottom: 20px; /* Spacing below the paragraph */
+        }
+
+        button {
+            background-color: #ff4d4d; /* Red background for delete */
+            color: white;
+            border: none;
+            padding: 12px 20px; /* Padding for button */
+            border-radius: 6px; /* Rounded corners */
+            cursor: pointer;
+            font-size: 16px; /* Consistent font size */
+            transition: background-color 0.3s; /* Smooth transition */
+        }
+
+        button:hover {
+            background-color: #cc0000; /* Darker red on hover */
+        }
+
+        .link {
+            display: inline-block;
+            text-align: center;
+            margin-top: 20px;
+            text-decoration: none;
+            color: #007bff; /* Blue color for cancel link */
+            font-size: 16px; /* Consistent font size */
+        }
+
+        .link:hover {
+            text-decoration: underline; /* Underline on hover */
+        }
+    </style>
+</head>
+<body>
+    {% include 'header.html' %}
+    <div class="confirmation-box">
+        <h1>Delete Project</h1>
+        <p>Are you sure you want to delete the project: <strong>{{ project.name }}</strong>?</p>
+
+        <form method="post">
+            {% csrf_token %}
+            <button type="submit">Yes, delete</button>
+        </form>
+
+        <a href="{% url 'manager_home' %}" class="link">Cancel</a>
+    </div>
+
+    {% include 'footer.html' %}
+</body>
+</html>

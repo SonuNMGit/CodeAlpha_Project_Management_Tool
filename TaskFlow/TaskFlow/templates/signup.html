@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Signup - TaskFlow</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"> <!-- Optional Bootstrap for better styling -->
+    <style>
+        body {
+            background-color: #f8f9fa; /* Light gray background for a soft look */
+            color: #343a40; /* Dark text color */
+            font-family: 'Arial', sans-serif;
+            display: flex; /* Flexbox for centering */
+            justify-content: center; /* Center horizontally */
+            align-items: center; /* Center vertically */
+            height: 100vh; /* Full viewport height */
+            margin: 0; /* Remove default margin */
+        }
+
+        .signup-container {
+            background-color: #ffffff; /* White background for the form */
+            padding: 40px; /* Increased padding */
+            border-radius: 10px; /* Rounded corners */
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+            width: 100%;
+            max-width: 400px; /* Max width for form */
+        }
+
+        h1 {
+            font-size: 36px;
+            margin-bottom: 20px;
+            text-align: center; /* Center heading */
+            color: #4CAF50; /* Green color for heading */
+        }
+
+        label {
+            font-size: 16px;
+            color: #333; /* Darker color for labels */
+            font-weight: bold; /* Bold text for labels */
+        }
+
+        input[type="text"],
+        input[type="email"],
+        input[type="password"],
+        select {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ced4da; /* Light border color */
+            border-radius: 5px;
+            background-color: #e9ecef; /* Light background for input fields */
+            color: #495057; /* Darker text color */
+        }
+
+        input[type="text"]:focus,
+        input[type="email"]:focus,
+        input[type="password"]:focus,
+        select:focus {
+            border-color: #4CAF50; /* Green border on focus */
+            outline: none; /* Remove default outline */
+        }
+
+        .button {
+            background-color: #4CAF50; /* Green background for button */
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 18px;
+            margin: 10px 0;
+            cursor: pointer;
+            border-radius: 5px;
+            width: 100%;
+        }
+
+        .button:hover {
+            background-color: #45a049; /* Darker green on hover */
+        }
+
+        .link {
+            color: #4CAF50; /* Green color for links */
+            text-decoration: none;
+            display: block;
+            margin-top: 10px;
+            text-align: center; /* Center align link */
+        }
+
+        .link:hover {
+            text-decoration: underline; /* Underline on hover */
+        }
+    </style>
+</head>
+<body>
+
+    <div class="signup-container">
+        <h1>Sign Up</h1>
+        <form method="POST" action="{% url 'signup' %}">
+            {% csrf_token %}
+            <label for="username">Username:</label>
+            <input type="text" id="username" name="username" required>
+
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" required>
+
+            <label for="role">Role:</label>
+            <select id="role" name="role" required>
+                <option value="manager">Manager</option>
+                <option value="team_member">Team Member</option>
+            </select>
+ 
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password" required>
+
+            <label for="confirm_password">Confirm Password:</label>
+            <input type="password" id="confirm_password" name="confirm_password" required>
+
+            <button type="submit" class="button">Sign Up</button>
+        </form>
+
+        <a href="{% url 'login' %}" class="link">Already have an account? Login</a>
+    </div>
+
+</body>
+</html>

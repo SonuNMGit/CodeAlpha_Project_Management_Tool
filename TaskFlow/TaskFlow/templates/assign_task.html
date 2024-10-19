@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Assign Task - {{ project.name }}</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f0f4f8; /* Light gray background */
+            margin: 0;
+            padding: 20px;
+        }
+
+        h1 {
+            color: #333;
+            text-align: center;
+            margin-bottom: 30px; /* Increased margin for a cleaner look */
+        }
+
+        form {
+            background: #ffffff; /* White background for the form */
+            padding: 30px; /* More padding for spacious feel */
+            border-radius: 8px; /* Rounded corners */
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1); /* Deeper shadow for depth */
+            max-width: 600px; /* Set a max-width for better layout */
+            margin: 0 auto; /* Center the form */
+        }
+
+        div {
+            margin-bottom: 20px; /* Increased bottom margin */
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px; /* Spacing below labels */
+            font-weight: bold;
+            color: #555; /* Slightly darker gray for better contrast */
+        }
+
+        input[type="text"],
+        input[type="date"],
+        select {
+            width: 100%;
+            padding: 12px; /* Increased padding */
+            border: 2px solid #007bff; /* Blue border */
+            border-radius: 6px; /* Slightly more rounded corners */
+            box-sizing: border-box;
+            transition: border-color 0.3s; /* Smooth transition for focus */
+        }
+
+        input[type="text"]:focus,
+        input[type="date"]:focus,
+        select:focus {
+            border-color: #0056b3; /* Darker blue on focus */
+            outline: none; /* Remove default outline */
+            box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+        }
+
+        button {
+            background-color: #007bff; /* Blue background */
+            color: white;
+            border: none;
+            padding: 12px 20px; /* Increased padding */
+            border-radius: 6px; /* Rounded corners */
+            cursor: pointer;
+            width: 100%;
+            font-size: 16px; /* Larger text for buttons */
+            transition: background-color 0.3s; /* Smooth transition */
+        }
+
+        button:hover {
+            background-color: #0056b3; /* Darker blue on hover */
+        }
+
+        .link {
+            display: block;
+            text-align: center;
+            margin-top: 20px;
+            text-decoration: none;
+            color: #007bff; /* Blue color for link */
+            font-size: 16px; /* Consistent font size */
+        }
+
+        .link:hover {
+            text-decoration: underline; /* Underline on hover */
+        }
+
+        .error-message {
+            color: red;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    {% include 'header.html' %}
+    <h1>Assign Task to Project: {{ project.name }}</h1>
+
+    <form method="post">
+        {% csrf_token %}
+        
+        <div>
+            <label for="id_title">Task Title:</label>
+            {{ form.title }}
+            {{ form.title.errors }}
+        </div>
+        
+        <div>
+            <label for="id_description">Task Description:</label>
+            {{ form.description }}
+            {{ form.description.errors }}
+        </div>
+        
+        <div>
+            <label for="id_assigned_to">Assign To:</label>
+            {{ form.assigned_to }}  
+            {{ form.assigned_to.errors }}
+        </div>
+        
+        <div>
+            <label for="id_deadline">Deadline:</label>
+            {{ form.deadline }}
+            {{ form.deadline.errors }}
+        </div>
+
+        {{ form.non_field_errors }}
+
+        <button type="submit">Assign Task</button>
+    </form>
+
+    <a href="{% url 'manager_home' %}" class="link">Back to Dashboard</a>
+    {% include 'footer.html' %}
+</body>
+</html>

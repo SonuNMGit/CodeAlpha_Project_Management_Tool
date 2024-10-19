@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TaskFlow</title>
+    <style>
+        body {
+            background-color: #f4f4f4; /* Light gray background */
+            color: #333; /* Darker text color */
+            font-family: 'Arial', sans-serif;
+            text-align: center;
+            margin: 0; /* Remove default margin */
+            padding: 0; /* Remove default padding */
+        }
+        header {
+            background-color: #4CAF50; /* Green header background */
+            padding: 20px;
+            color: white; /* White text color */
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3); /* Shadow effect for the header */
+        }
+        h1 {
+            font-size: 36px;
+            margin: 0; /* Remove margin for the header */
+            display: inline; /* Keep header title inline */
+        }
+        footer {
+            background-color: #222; /* Darker background for the footer */
+            position: fixed; /* Fix footer at the bottom */
+            left: 0;
+            bottom: 0;
+            width: 100%; /* Full width */
+            text-align: center; /* Center text in footer */
+            padding: 15px; /* Add padding */
+            color: white; /* White text color */
+        }
+        p {
+            font-size: 18px;
+            margin: 10px 0 30px; /* Adjust margins for better spacing */
+        }
+        .button-container {
+            margin-top: 40px;
+        }
+        .button {
+            background-color: #4CAF50; /* Button color */
+            color: white; /* White text color */
+            border: none;
+            padding: 15px 30px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 18px;
+            margin: 10px;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: background-color 0.3s ease, transform 0.3s ease; /* Smooth transitions */
+        }
+        .button:hover {
+            background-color: #45a049; /* Darker green on hover */
+            transform: translateY(-2px); /* Slight lift effect */
+        }
+        .content {
+            max-width: 800px; /* Maximum width for content */
+            margin: 50px auto; /* Centering the content */
+            padding: 20px;
+            background: white; /* White background for content */
+            border-radius: 8px; /* Rounded corners */
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Shadow effect */
+        }
+        @media (max-width: 600px) {
+            h1 {
+                font-size: 28px; /* Responsive font size */
+            }
+            p {
+                font-size: 16px; /* Responsive font size */
+            }
+            .button {
+                font-size: 16px; /* Responsive button size */
+                padding: 12px 24px; /* Responsive padding */
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>TaskFlow</h1>
+    </header>
+
+    <div class="content">
+        <h2>Welcome to TaskFlow</h2>
+        <p>This project management tool is designed to make collaboration easy.</p>
+        <p>Create and manage tasks for different projects efficiently.</p>
+        <p>Managers and team members can communicate and track progress.</p>
+
+        <h2>Login as Manager or Team Member</h2>
+        <div class="button-container">
+            <a href="{% url 'login' %}" class="button">Login/Signup</a>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; <span id="current-year"></span> TaskFlow. All rights reserved.</p>
+    </footer>
+
+    <script>
+        document.getElementById("current-year").textContent = new Date().getFullYear();
+    </script>
+
+</body>
+</html>

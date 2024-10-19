@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - TaskFlow</title>
+    <style>
+        body {
+            background-color: #f4f4f4; /* Light gray background */
+            color: #333; /* Dark text color */
+            font-family: 'Arial', sans-serif;
+            text-align: center;
+            padding: 0; /* Reset padding */
+            margin: 0; /* Reset margin */
+            display: flex; /* Flexbox for centering */
+            justify-content: center; /* Center horizontally */
+            align-items: center; /* Center vertically */
+            height: 100vh; /* Full viewport height */
+        }
+        h1 {
+            font-size: 36px;
+            margin-bottom: 20px;
+            color: #4CAF50; /* Green color for the header */
+        }
+        .login-container {
+            background-color: #ffffff; /* White background for the form */
+            padding: 40px; /* Increased padding */
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); /* Subtle shadow effect */
+            width: 100%;
+            max-width: 400px; /* Max width for the form */
+            text-align: left; /* Align text to the left */
+        }
+        label {
+            font-size: 16px;
+            color: #333; /* Dark text color */
+            margin-bottom: 5px; /* Space between label and input */
+        }
+        input[type="text"],
+        input[type="password"] {
+            width: 100%;
+            padding: 12px; /* Increased padding for better touch targets */
+            margin: 10px 0;
+            border: 1px solid #ddd; /* Light border */
+            border-radius: 5px;
+            background-color: #f9f9f9; /* Light gray input background */
+            color: #333; /* Dark text color */
+            transition: border-color 0.3s; /* Transition effect */
+        }
+        input:focus {
+            border-color: #4CAF50; /* Green border on focus */
+            outline: none; /* Remove outline */
+        }
+        .button {
+            background-color: #4CAF50; /* Button color */
+            color: white; /* White text color */
+            border: none;
+            padding: 12px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 18px;
+            margin: 20px 0; /* Increased margin for spacing */
+            cursor: pointer;
+            border-radius: 5px;
+            width: 100%;
+            transition: background-color 0.3s, transform 0.2s; /* Transition effects */
+        }
+        .button:hover {
+            background-color: #45a049; /* Darker green on hover */
+            transform: translateY(-2px); /* Slight lift effect */
+        }
+        .link {
+            color: #4CAF50; /* Green color for links */
+            text-decoration: none;
+            display: block;
+            margin-top: 10px;
+            transition: color 0.3s; /* Transition effect */
+        }
+        .link:hover {
+            text-decoration: underline; /* Underline on hover */
+            color: #388E3C; /* Darker green on hover */
+        }
+    </style>
+</head>
+<body>
+
+    <div class="login-container">
+        <h1>Login</h1>
+
+        <form method="POST" action="{% url 'login' %}">
+            {% csrf_token %}
+            <label for="username">Username:</label>
+            <input type="text" id="username" name="username" required>
+
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password" required>
+
+            <button type="submit" class="button">Login</button>
+        </form>
+
+        <a href="{% url 'password_reset' %}" class="link">Forgot Password?</a>
+        <a href="{% url 'signup' %}" class="link">Don't have an account? Sign Up</a>
+        <a href="{% url 'home' %}" class="link">Home</a>
+    </div>
+
+</body>
+</html>
